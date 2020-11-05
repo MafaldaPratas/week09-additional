@@ -1,0 +1,51 @@
+---
+title: "R Coding Demonstration Week 9: Sampling from the Voter File"
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+---
+
+## Sampling from the voter file
+
+A new way that some pollsters are polling for election is by sampling from the voter file directly. Voter files are really big, so we're going to work with one county in FL, Miami-Dade. We've stripped identifiable data, but the original had names, addresses, phone numbers, and email addresses. 
+
+## Miami-Dade voter file
+
+We will use the `load()` function to load and `RData` file rather than a `csv`. This is useful for large data sets because `RData` files are able to compress the data to keep file sizes more manageable. When you use `load()`, you don't save it as anything using `<-`, but it will directly load an object into your R environment. In this case, it is a data frame called `dade`. 
+
+```{r}
+load("data/dade_vf_2020.RData")
+head(dade[, 1:5])
+```
+
+| Variable   | Description                                           |
+|:-----------|:------------------------------------------------------|
+| `voter_id` | Voter ID number                                       |
+| `city`     | City of residence                                     |
+| `precinct` | Precinct of residence                                 |
+| `race`     | Race of registered voter                              |
+| `dem`      | 1=Democrat, 0=otherwise                               |
+| `rep`      | 1=Republican, 0=otherwise                             |
+| `female`   | 1=Female, 0=otherwise (Male/Unknown)                  |
+| `age`      | Registrant age                                        |
+| `PPP_2016` | 1 = Voted in 2016 presidential primary, 0=didn't vote |
+| `PRI_2016` | 1 = Voted in 2016 state primary, 0=didn't vote        |
+| `GEN_2016` | 1 = Voted in 2016 general election, 0=didn't vote     |
+
+
+## Question 1
+
+What proportion of Miami-Dade County registered voters are registered as Democrats? Take a sample of size 100 and calculate the sample mean. 
+
+
+## Question 2
+
+What is the average age of Miami-Dade County registered voters (that is, what is the population mean)? Take a sample of size 100 ages from the set of registered voters and calculate the sample mean.
+
+
+## Question 3
+
+Use a `for` loop to repeat the process of sampling the voter file 10,000 times. In each iteration, take a sample of 100 from `dade$dem` and save the sample mean of that sample. 
+
+Compare the mean and standard deviation of the 10,000 sample means to the population mean and population standard deviation of `dem`. Draw a histogram of the means: what distribution do they follow?
